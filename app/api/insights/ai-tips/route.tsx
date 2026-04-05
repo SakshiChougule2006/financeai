@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
-  const { totalSpent, totalBudget, summary } = await req.json()
+  const { question, summary, total } = await req.json()
 
   const response = await fetch('https://api.x.ai/v1/chat/completions', {
     method: 'POST',
@@ -16,22 +16,15 @@ export async function POST(req: Request) {
         {
           role: 'user',
           content: `You are a friendly personal finance advisor for an Indian user.
-
-Here is their spending summary:
-- Total Budget: ₹${totalBudget}
-- Total Spent: ₹${totalSpent}
-- Category breakdown: ${summary}
-
-Give them 4-5 short, practical, personalized tips to improve their spending habits.
-Be specific, friendly and encouraging. Use Indian Rupee (₹) symbol.
-Keep each tip to 1-2 sentences. Use bullet points.`,
+${summary ? `Their spending: ${summary}. Total: ₹${total}` : ''}
+Question: ${question}
+Give a helpful, specific answer in 3-4 sentences. Use ₹ symbol.`,
         },
       ],
     }),
   })
 
   const data = await response.json()
-  const tips = data.choices?.[0]?.message?.content || 'Could not generate tips.'
-
-  return NextResponse.json({ tips })
+  const answer = data.choices?.[0]?.message?.content || 'Could not generate response.'
+  return NextResponse.json({ answer })
 }
