@@ -99,7 +99,7 @@ export default function Dashboard() {
       .join(', ')
 
     try {
-      const res = await fetch('/api/ai-tips', {
+      const res = await fetch('/api/insights/ai-tips', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

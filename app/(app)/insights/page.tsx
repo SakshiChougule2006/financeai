@@ -81,7 +81,7 @@ export default function Insights() {
 
   return (
     <div>
-      <Topbar title="AI Insights" subtitle="Powered by Claude — your personal finance advisor" />
+      <Topbar title="AI Insights" subtitle="Powered by Grok — your personal finance advisor" />
 
       {/* AI Chat Box */}
       <div className="card mb-6" style={{ border: '1px solid rgba(0,200,120,0.2)', background: 'rgba(0,200,120,0.03)' }}>
@@ -92,7 +92,7 @@ export default function Insights() {
           </div>
           <div>
             <p className="font-semibold text-sm" style={{ fontFamily: 'var(--font-display)' }}>Ask your AI advisor</p>
-            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Powered by Claude AI</p>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Powered by Grok AI</p>
           </div>
         </div>
 
@@ -124,7 +124,7 @@ export default function Insights() {
           <div className="p-4 rounded-xl ai-shimmer" style={{ border: '1px solid rgba(0,200,120,0.15)' }}>
             <div className="flex items-center gap-2">
               <Sparkles size={14} color="#00c878" />
-              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Claude is analyzing your finances...</span>
+              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Grok is analyzing your finances...</span>
             </div>
           </div>
         )}

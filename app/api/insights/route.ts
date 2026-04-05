@@ -7,9 +7,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No question provided' }, { status: 400 })
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.GROK_API_KEY
   if (!apiKey) {
-    return NextResponse.json({ error: 'ANTHROPIC_API_KEY not set in .env.local' }, { status: 500 })
+    return NextResponse.json({ error: 'GROK_API_KEY not set in .env.local' }, { status: 500 })
   }
 
   // Sample spending context (in production, fetch real data from Supabase)
@@ -27,21 +27,23 @@ export async function POST(req: NextRequest) {
   `
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'grok-3-mini',
         max_tokens: 500,
-        system: `You are a friendly, knowledgeable personal finance advisor for an Indian user. 
+        messages: [
+          {
+            role: 'system',
+            content: `You are a friendly, knowledgeable personal finance advisor for an Indian user. 
 You give practical, concise advice. Always mention specific rupee amounts when possible.
 Keep responses under 150 words. Be warm, encouraging, and actionable.
-Here is the user's current financial data:\n${spendingContext}`,
-        messages: [
+Here is the user's current financial data:\n${spendingContext}`
+          },
           { role: 'user', content: question }
         ],
       }),
@@ -53,7 +55,7 @@ Here is the user's current financial data:\n${spendingContext}`,
       return NextResponse.json({ error: data.error.message }, { status: 500 })
     }
 
-    const answer = data.content?.[0]?.text || 'No answer generated.'
+    const answer = data.choices?.[0]?.message?.content || 'No answer generated.'
     return NextResponse.json({ answer })
 
   } catch (err: any) {
