@@ -271,24 +271,8 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* AI Tips */}
-            <div style={{ background: '#1e293b', borderRadius: '12px', padding: '24px', marginBottom: '24px', border: '1px solid #334155' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <h2 style={{ margin: 0, fontSize: '16px' }}>🤖 AI Spending Tips</h2>
-                <button onClick={getAiTips} disabled={loadingTips || expenses.length === 0}
-                  style={{ padding: '8px 16px', background: loadingTips ? '#334155' : '#8b5cf6', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: 'bold' }}>
-                  {loadingTips ? '⏳ Analyzing...' : '✨ Get AI Tips'}
-                </button>
-              </div>
-              {aiTips ? (
-                <div style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: '1.8', whiteSpace: 'pre-wrap' }}>{aiTips}</div>
-              ) : (
-                <div style={{ color: '#94a3b8', fontSize: '14px', textAlign: 'center', padding: '20px 0' }}>
-                  {expenses.length === 0 ? 'Add expenses first to get AI tips!' : 'Click "Get AI Tips" to get personalized spending advice!'}
-                </div>
-              )}
-            </div>
-
+            
+            
             {/* Overall Bar */}
             <div style={{ background: '#1e293b', borderRadius: '12px', padding: '24px', marginBottom: '24px', border: '1px solid #334155' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
